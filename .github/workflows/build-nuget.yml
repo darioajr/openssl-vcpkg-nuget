@@ -26,8 +26,7 @@ jobs:
         shell: pwsh
         run: |
           $json = Get-Content -Raw -Path "vcpkg.json" | ConvertFrom-Json
-          $dep = $json.dependencies | Where-Object { $_.name -eq "openssl" }
-          $version = if ($dep.version) { $dep.version } elseif ($dep.'version>=') { $dep.'version>=' } else { "0.0.0" }
+          $version = if ($json.'version-string') { $json.'version-string' } else { "0.0.0" }
           echo "Versão: $version"
           echo "PACKAGE_VERSION=$version" >> $env:GITHUB_OUTPUT
 

@@ -64,20 +64,18 @@ jobs:
       - name: Release
         uses: softprops/action-gh-release@v2
         with:
-          name: Release ${{ env.PACKAGE_VERSION }}
-          tag_name: ${{ env.PACKAGE_VERSION }}
-          files: |
-            ${{env.GITHUB_WORKSPACE}}\outzip\*.nupkg.zip
+          name: Release ${{ steps.get-version.outputs.PACKAGE_VERSION }}
+          tag_name: ${{ steps.get-version.outputs.PACKAGE_VERSION }}
+          files: outzip/*.nupkg.zip
           draft: false
           prerelease: false
           generate_release_notes: true
           make_latest: true
           fail_on_unmatched_files: false
-          token: ${{ secrets.PAT_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Upload NuGet artifact
         uses: actions/upload-artifact@v4
         with:
           name: openssl-nupkg
-          path: |
-            outzip\*.nupkg.zip
+          path: outzip/*.nupkg.zip

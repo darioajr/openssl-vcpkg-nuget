@@ -11,7 +11,7 @@ This project creates a NuGet package of OpenSSL compiled using vcpkg for Windows
 OpenSSL is a robust, commercial-grade, and full-featured cryptography library for the Transport Layer Security (TLS) and Secure Sockets Layer (SSL) protocols. It is also a general-purpose cryptography library.
 
 This NuGet package includes:
-- 🔐 **OpenSSL version 1.1.1n (NuGet: 1.1.1.14)**
+- 🔐 **Multiple OpenSSL versions** (see version table below)
 - 📚 **Static and dynamic libraries**
 - 📁 **Development headers**
 - ⚙️ **Automatic configuration for Visual Studio**
@@ -34,6 +34,8 @@ dotnet add package openssl.vcpkg
 ### Via PackageReference
 
 ```xml
+<!-- Use the specific version you need -->
+<PackageReference Include="openssl.vcpkg" Version="3.0.8" />
 <PackageReference Include="openssl.vcpkg" Version="1.1.1.14" />
 ```
 
@@ -111,27 +113,38 @@ int main() {
 - `ws2_32.lib` - Windows Sockets API
 - `crypt32.lib` - Windows Cryptography API
 
-## 🔒 OpenSSL Version
+## 🔒 Supported OpenSSL Versions
 
-This package uses **OpenSSL 1.1.1n** (NuGet version: 1.1.1.14), which includes:
+This package supports multiple OpenSSL versions:
+
+### OpenSSL 3.0.8 (Latest)
 - Complete TLS/SSL support
-- Symmetric and asymmetric cryptography algorithms
-- Cryptographic hash functions
-- X.509 certificates
-- Cryptographically secure random number generators
+- Enhanced security features and performance improvements
+- Provider-based architecture
+- Improved algorithm support
+- Better FIPS compliance
 
-## � Version Mapping
+### OpenSSL 1.1.1n (Legacy)
+- Stable and widely compatible
+- Complete TLS/SSL support
+- Symmetric and asymmetric cryptography
+- X.509 certificates support
 
-OpenSSL uses a versioning scheme that includes letters (e.g., `1.1.1n`), but NuGet Package Manager only accepts numeric versions in SemVer format (`major.minor.patch[.build]`). This package uses the following conversion:
+## 📊 Available Versions
 
-| OpenSSL Version | NuGet Version | Description |
-|----------------|---------------|-------------|
-| `1.1.1n` | `1.1.1.14` | Where `n` represents the 14th letter of the alphabet |
+| OpenSSL Version | NuGet Version | Status | Release Date |
+|----------------|---------------|--------|--------------|
+| `3.0.8` | `3.0.8` | ✅ Latest | Current |
+| `1.1.1n` | `1.1.1.14` | 🔄 Legacy | Previous |
+
+### Version Selection Guide
+- **Use 3.0.8**: For new projects requiring latest security features
+- **Use 1.1.1.14**: For legacy compatibility or existing projects
 
 ### Version Format Rules
-- OpenSSL letter suffixes are converted to numeric equivalents
-- `a` = `1`, `b` = `2`, ..., `n` = `14`, etc.
-- This ensures compatibility with NuGet's SemVer requirements
+- **OpenSSL 3.x**: Direct semantic versioning (3.0.8 → 3.0.8)
+- **OpenSSL 1.1.1x**: Letter suffixes converted to numeric (`a` = `1`, `b` = `2`, etc.)
+- All versions ensure NuGet SemVer compatibility
 
 ### Creating the Package
 To create the NuGet package locally:
@@ -143,7 +156,7 @@ cd openssl-vcpkg-nuget
 # Create the package
 nuget pack openssl.vcpkg.nuspec -OutputDirectory out
 
-# Output: openssl.vcpkg.1.1.1.14.nupkg
+# Output: openssl.vcpkg.{version}.nupkg (e.g., openssl.vcpkg.3.0.8.nupkg)
 ```
 
 ## �🛠️ Build Process

@@ -1,6 +1,6 @@
 # OpenSSL vcpkg NuGet Package
 
-[![Build Status](https://github.com/darioajr/openssl-vcpkg-nuget/workflows/build-nuget/badge.svg)](https://github.com/darioajr/openssl-vcpkg-nuget/actions)
+[![Build Status](https://github.com/darioajr/openssl-vcpkg-nuget/actions/workflows/build-nuget.yml/badge.svg)](https://github.com/darioajr/openssl-vcpkg-nuget/actions)
 [![NuGet Version](https://img.shields.io/nuget/v/openssl.vcpkg.svg)](https://www.nuget.org/packages/openssl.vcpkg/)
 [![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](LICENSE)
 

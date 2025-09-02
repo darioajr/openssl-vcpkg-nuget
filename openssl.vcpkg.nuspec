@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
+  <metadata>
+    <id>openssl.vcpkg</id>
+    <version>1.1.1.14</version>
+    <authors>OpenSSL Software Foundation</authors>
+    <owners>Dario Alves Junior</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <license type="expression">Apache-2.0</license>
+    <projectUrl>https://github.com/darioajr/openssl-vcpkg-nuget</projectUrl>
+    <description>OpenSSL build from vcpkg for Windows x64 vc143 (Visual Studio 2022). Includes static and dynamic libraries, headers, and dependencies. OpenSSL is a cryptography library that provides secure communications.</description>
+    <tags>native openssl vcpkg c++ ssl tls cryptography security</tags>
+    <readme>README.md</readme>
+  </metadata>
+  <files>
+    <!-- Docs -->
+    <file src="README.md" target="" />
+
+    <file src="openssl.vcpkg.targets" target="build\native" />
+
+    <!-- Headers -->
+    <file src="vcpkg_installed\x64-windows\include\**\*.*" target="build\native\include" />
+
+    <!-- Libs Release -->
+    <file src="vcpkg_installed\x64-windows\lib\*.lib" target="build\native\lib\x64\Release" />
+
+    <!-- Libs Debug -->
+    <file src="vcpkg_installed\x64-windows\debug\lib\*.lib" target="build\native\lib\x64\Debug" />
+
+    <!-- DLLs Release -->
+    <file src="vcpkg_installed\x64-windows\bin\*.dll" target="build\native\bin\x64\Release" />
+    <file src="vcpkg_installed\x64-windows\bin\*.pdb" target="build\native\bin\x64\Release" />
+
+    <!-- DLLs Debug -->
+    <file src="vcpkg_installed\x64-windows\debug\bin\*.dll" target="build\native\bin\x64\Debug" />
+    <file src="vcpkg_installed\x64-windows\debug\bin\*.pdb" target="build\native\bin\x64\Debug" />
+  </files>
+</package>

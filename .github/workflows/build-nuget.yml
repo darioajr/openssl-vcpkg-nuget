@@ -1,0 +1,83 @@
+name: Build openssl NuGet Package
+
+on:
+  push:
+    tags:
+      - '*'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  packages: write
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    env:
+      VCPKG_ROOT: ${{ github.workspace }}\vcpkg
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Obter versão do openssl via vcpkg.json
+        id: get-version
+        shell: pwsh
+        run: |
+          $json = Get-Content -Raw -Path "vcpkg.json" | ConvertFrom-Json
+          $dep = $json.dependencies | Where-Object { $_.name -eq "openssl" }
+          $version = if ($dep.version) { $dep.version } elseif ($dep.'version>=') { $dep.'version>=' } else { "0.0.0" }
+          echo "Versão: $version"
+          echo "PACKAGE_VERSION=$version" >> $env:GITHUB_OUTPUT
+
+      - name: Setup NuGet
+        uses: NuGet/setup-nuget@v1
+
+      - name: Install vcpkg
+        run: |
+          git clone https://github.com/microsoft/vcpkg.git
+          git -C vcpkg pull
+          .\vcpkg\bootstrap-vcpkg.bat
+          .\vcpkg\vcpkg.exe integrate install
+
+      - name: Install openssl with vcpkg
+        run: .\vcpkg\vcpkg.exe install --triplet x64-windows
+
+      - name: Pack NuGet package
+        run: |
+          nuget pack openssl.vcpkg.nuspec -OutputDirectory out
+
+      - name: Publish on NuGet.org
+        run: nuget push out\*.nupkg -ApiKey ${{ secrets.NUGET_API_KEY }} -Source https://api.nuget.org/v3/index.json
+
+      - name: Zip .nupkg as .nupkg.zip
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Path "outzip" -Force | Out-Null
+          Get-ChildItem "out" -Filter *.nupkg | ForEach-Object {
+            $zipPath = "outzip/$($_.Name).zip"
+            Compress-Archive -Path $_.FullName -DestinationPath $zipPath
+            Rename-Item -Path $zipPath -NewName "$($_.Name).nupkg.zip"
+          }
+
+      - name: Release
+        uses: softprops/action-gh-release@v2
+        with:
+          name: Release ${{ env.PACKAGE_VERSION }}
+          tag_name: ${{ env.PACKAGE_VERSION }}
+          files: |
+            ${{env.GITHUB_WORKSPACE}}\outzip\*.nupkg.zip
+          draft: false
+          prerelease: false
+          generate_release_notes: true
+          make_latest: true
+          fail_on_unmatched_files: false
+          token: ${{ secrets.PAT_TOKEN }}
+
+      - name: Upload NuGet artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: openssl-nupkg
+          path: |
+            outzip\*.nupkg.zip

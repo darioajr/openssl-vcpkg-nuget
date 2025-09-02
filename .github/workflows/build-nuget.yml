@@ -55,9 +55,8 @@ jobs:
         run: |
           New-Item -ItemType Directory -Path "outzip" -Force | Out-Null
           Get-ChildItem "out" -Filter *.nupkg | ForEach-Object {
-            $zipPath = "outzip/$($_.Name).zip"
-            Compress-Archive -Path $_.FullName -DestinationPath $zipPath
-            Rename-Item -Path $zipPath -NewName "$($_.Name).nupkg.zip"
+            $zipName = "$($_.BaseName).nupkg.zip"
+            Compress-Archive -Path $_.FullName -DestinationPath "outzip/$zipName"
           }
 
       - name: Release

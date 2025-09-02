@@ -35,6 +35,7 @@ dotnet add package openssl.vcpkg
 
 ```xml
 <!-- Use the specific version you need -->
+<PackageReference Include="openssl.vcpkg" Version="3.1.4" />
 <PackageReference Include="openssl.vcpkg" Version="3.0.8" />
 <PackageReference Include="openssl.vcpkg" Version="1.1.1.14" />
 ```
@@ -117,7 +118,15 @@ int main() {
 
 This package supports multiple OpenSSL versions:
 
-### OpenSSL 3.0.8 (Latest)
+### OpenSSL 3.1.4 (Latest)
+- Complete TLS/SSL support
+- Enhanced security features and performance improvements
+- Provider-based architecture
+- Improved algorithm support
+- Better FIPS compliance
+- Latest bug fixes and security patches
+
+### OpenSSL 3.0.8 (Stable)
 - Complete TLS/SSL support
 - Enhanced security features and performance improvements
 - Provider-based architecture
@@ -134,11 +143,13 @@ This package supports multiple OpenSSL versions:
 
 | OpenSSL Version | NuGet Version | Status | Release Date |
 |----------------|---------------|--------|--------------|
-| `3.0.8` | `3.0.8` | ✅ Latest | Current |
+| `3.1.4` | `3.1.4` | ✅ Latest | Current |
+| `3.0.8` | `3.0.8` | 🟢 Stable | Previous |
 | `1.1.1n` | `1.1.1.14` | 🔄 Legacy | Previous |
 
 ### Version Selection Guide
-- **Use 3.0.8**: For new projects requiring latest security features
+- **Use 3.1.4**: For new projects requiring the latest features and security patches
+- **Use 3.0.8**: For projects needing stable OpenSSL 3.x features
 - **Use 1.1.1.14**: For legacy compatibility or existing projects
 
 ### Version Format Rules

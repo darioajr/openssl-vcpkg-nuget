@@ -35,6 +35,7 @@ dotnet add package openssl.vcpkg
 
 ```xml
 <!-- Use the specific version you need -->
+<PackageReference Include="openssl.vcpkg" Version="3.5.2" />
 <PackageReference Include="openssl.vcpkg" Version="3.3.2" />
 <PackageReference Include="openssl.vcpkg" Version="3.3.0" />
 <PackageReference Include="openssl.vcpkg" Version="3.2.1" />
@@ -121,7 +122,19 @@ int main() {
 
 This package supports multiple OpenSSL versions:
 
-### OpenSSL 3.3.2 (Latest)
+### OpenSSL 3.5.2 (Latest)
+- Complete TLS/SSL support
+- Enhanced security features and performance improvements
+- Provider-based architecture
+- Improved algorithm support
+- Better FIPS compliance
+- Latest bug fixes and security patches
+- New cryptographic algorithms and optimizations
+- Enhanced post-quantum cryptography support
+- Critical security updates
+- Advanced performance optimizations
+
+### OpenSSL 3.3.2 (Stable)
 - Complete TLS/SSL support
 - Enhanced security features and performance improvements
 - Provider-based architecture
@@ -176,7 +189,8 @@ This package supports multiple OpenSSL versions:
 
 | OpenSSL Version | NuGet Version | Status | Release Date |
 |----------------|---------------|--------|--------------|
-| `3.3.2` | `3.3.2` | ✅ Latest | Current |
+| `3.5.2` | `3.5.2` | ✅ Latest | Current |
+| `3.3.2` | `3.3.2` | 🟢 Stable | Previous |
 | `3.3.0` | `3.3.0` | 🟢 Stable | Previous |
 | `3.2.1` | `3.2.1` | 🟢 Stable | Previous |
 | `3.1.4` | `3.1.4` | 🟢 Stable | Previous |
@@ -184,11 +198,12 @@ This package supports multiple OpenSSL versions:
 | `1.1.1n` | `1.1.1.14` | 🔄 Legacy | Previous |
 
 ### Version Selection Guide
-- **Use 3.3.2**: For new projects requiring the latest features and security patches
-- **Use 3.3.0**: For projects needing stable OpenSSL 3.3.x features
-- **Use 3.2.1**: For projects requiring proven stability
-- **Use 3.1.4**: For projects requiring maximum stability
-- **Use 3.0.8**: For projects requiring long-term stability
+- **Use 3.5.2**: For new projects requiring the latest features and security patches
+- **Use 3.3.2**: For projects needing stable OpenSSL 3.3.x features
+- **Use 3.3.0**: For projects requiring proven stability
+- **Use 3.2.1**: For projects requiring maximum stability
+- **Use 3.1.4**: For projects requiring long-term stability
+- **Use 3.0.8**: For projects requiring extended stability
 - **Use 1.1.1.14**: For legacy compatibility or existing projects
 
 ### Version Format Rules
